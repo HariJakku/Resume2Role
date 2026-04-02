@@ -137,7 +137,7 @@ export default function RegisterPage() {
                 </div>
                 <div style={{ marginBottom: 16 }}>
                   <label style={{ display: "block", fontSize: 13, fontWeight: 500, color: "#a1a1aa", marginBottom: 7 }}>Email address</label>
-                  <input className="input" type="email" placeholder="you@college.edu" value={form.email} onChange={set("email")} required />
+                  <input className="input" type="email" placeholder="(Ex: you@gmail.com)" value={form.email} onChange={set("email")} required />
                 </div>
                 <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12, marginBottom: 16 }}>
                   <div>
