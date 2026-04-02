@@ -171,7 +171,7 @@ export default function LoginPage() {
                 onSubmit={handleForgotPassword}>
                 <div style={{ marginBottom: 24 }}>
                   <label style={{ display: "block", fontSize: 13, fontWeight: 500, color: "#a1a1aa", marginBottom: 7 }}>Email address</label>
-                  <input className="input" type="email" placeholder="you@college.edu"
+                  <input className="input" type="email" placeholder="name@gmail.com"
                     value={email} onChange={e => setEmail(e.target.value)} required autoFocus />
                 </div>
                 {error && <ErrorBox msg={error} />}
