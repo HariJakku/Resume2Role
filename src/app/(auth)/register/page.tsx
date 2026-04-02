@@ -133,7 +133,7 @@ export default function RegisterPage() {
                 onSubmit={handleRegister}>
                 <div style={{ marginBottom: 16 }}>
                   <label style={{ display: "block", fontSize: 13, fontWeight: 500, color: "#a1a1aa", marginBottom: 7 }}>Full name</label>
-                  <input className="input" type="text" placeholder="Enter Your Name(ex: Hari)" value={form.fullName} onChange={set("fullName")} required />
+                  <input className="input" type="text" placeholder="Enter Your Full Name(Ex: Hari Jakku)" value={form.fullName} onChange={set("fullName")} required />
                 </div>
                 <div style={{ marginBottom: 16 }}>
                   <label style={{ display: "block", fontSize: 13, fontWeight: 500, color: "#a1a1aa", marginBottom: 7 }}>Email address</label>
@@ -142,11 +142,11 @@ export default function RegisterPage() {
                 <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12, marginBottom: 16 }}>
                   <div>
                     <label style={{ display: "block", fontSize: 13, fontWeight: 500, color: "#a1a1aa", marginBottom: 7 }}>College</label>
-                    <input className="input" type="text" placeholder="(ex:SRGEC)" value={form.college} onChange={set("college")} />
+                    <input className="input" type="text" placeholder="(Ex: SRGEC)" value={form.college} onChange={set("college")} />
                   </div>
                   <div>
                     <label style={{ display: "block", fontSize: 13, fontWeight: 500, color: "#a1a1aa", marginBottom: 7 }}>Branch</label>
-                    <input className="input" type="text" placeholder="(ex:CSE)" value={form.branch} onChange={set("branch")} />
+                    <input className="input" type="text" placeholder="(Ex:CSE / IT)" value={form.branch} onChange={set("branch")} />
                   </div>
                 </div>
                 <div style={{ marginBottom: 24 }}>
