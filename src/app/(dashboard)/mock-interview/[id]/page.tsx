@@ -161,36 +161,26 @@ export default function InterviewSessionPage() {
 
   // ── Finish interview ────────────────────────────────────────────────
   async function finishInterview() {
-    if (finishing) return
-    setFinishing(true)
-    setTimerOn(false)
+  if (finishing) return
+  setFinishing(true)
+  setTimerOn(false)
+  stopVoice()
 
-    try {
-      const res = await fetch("/api/interview/report", {
-        method:  "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          sessionId:  id,
-          role:       session.role,
-          company:    session.company,
-          type:       session.interview_type,
-          transcript,
-        }),
-      })
-      const report = await res.json()
+  try {
+    // First save whatever transcript we have
+    await supabase.from("interview_sessions").update({
+      status:       "completed",
+      completed_at: new Date().toISOString(),
+    }).eq("id", id)
 
-      await supabase.from("interview_sessions").update({
-        status:        "completed",
-        overall_score: report.overall_score,
-        feedback:      report,
-        completed_at:  new Date().toISOString(),
-      }).eq("id", id)
+    // Then go to report — report page will generate AI feedback
+    router.push(`/mock-interview/${id}/report`)
 
-      router.push(`/mock-interview/${id}/report`)
-    } catch {
-      router.push(`/mock-interview/${id}/report`)
-    }
+  } catch (err) {
+    // Still navigate — report page handles generation
+    router.push(`/mock-interview/${id}/report`)
   }
+}
 
   // ── Voice ───────────────────────────────────────────────────────────
  function startVoice() {
