@@ -122,3 +122,64 @@ body {
   color: transparent;
   -webkit-text-fill-color: transparent;
 }
+/* ══ MOBILE RESPONSIVE ══ */
+@media (max-width: 768px) {
+  /* Landing hero */
+  section { padding-left: 16px !important; padding-right: 16px !important; }
+
+  /* Grid → single column */
+  [style*="grid-template-columns: 1fr 1fr"],
+  [style*="gridTemplateColumns: '1fr 1fr'"] {
+    grid-template-columns: 1fr !important;
+  }
+
+  /* Mockup panels stack */
+  [style*="grid-template-columns: 1fr 320px"],
+  [style*="grid-template-columns: 1fr 340px"],
+  [style*="grid-template-columns: 420px 1fr"],
+  [style*="grid-template-columns: auto 1fr"] {
+    grid-template-columns: 1fr !important;
+  }
+
+  /* Dashboard stats */
+  [style*="minmax(180px,1fr)"],
+  [style*="minmax(160px,1fr)"] {
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
+
+  /* Feature cards */
+  [style*="minmax(300px,1fr)"],
+  [style*="minmax(280px,1fr)"] {
+    grid-template-columns: 1fr !important;
+  }
+
+  /* Buttons stack */
+  [style*="display: flex"][style*="gap"] > a.btn-primary,
+  [style*="display: flex"][style*="gap"] > a.btn-secondary {
+    width: 100% !important;
+    justify-content: center !important;
+  }
+
+  /* Interview room */
+  .interview-panel { display: none !important; }
+
+  /* Coding table — hide some columns */
+  .coding-table-row { grid-template-columns: 40px 1fr 80px 40px !important; }
+  .coding-col-topic,
+  .coding-col-company,
+  .coding-col-category { display: none !important; }
+}
+
+@media (max-width: 480px) {
+  h1 { font-size: 24px !important; letter-spacing: -0.02em !important; }
+  h2 { font-size: 20px !important; }
+
+  [style*="minmax(180px,1fr)"],
+  [style*="minmax(160px,1fr)"] {
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
+
+  [style*="padding: \"40px 24px\""] {
+    padding: 20px 14px !important;
+  }
+}

@@ -193,75 +193,78 @@ export default function InterviewSessionPage() {
   }
 
   // ── Voice ───────────────────────────────────────────────────────────
-  function startVoice() {
-    if (typeof window === "undefined") return
+ function startVoice() {
+  if (typeof window === "undefined") return
+  const SR = (window as any).SpeechRecognition || (window as any).webkitSpeechRecognition
+  if (!SR) { alert("Use Google Chrome for voice support."); return }
 
-    const SR = (window as any).SpeechRecognition || (window as any).webkitSpeechRecognition
-    if (!SR) {
-      alert("Voice not supported. Please use Google Chrome.")
-      return
+  try {
+    if (recognitionRef.current) {
+      recognitionRef.current.stop()
+      recognitionRef.current = null
     }
 
-    try {
+    const recognition = new SR()
+    recognition.continuous      = false   // ← KEY FIX: false stops repeat
+    recognition.interimResults  = false   // ← KEY FIX: only final results
+    recognition.lang            = "en-US"
+    recognition.maxAlternatives = 1
+
+    recognition.onstart = () => { setListening(true); setError("") }
+
+    recognition.onresult = (e: any) => {
+      const transcript = e.results[0][0].transcript
+      setAnswer(prev => {
+        const base = prev.trim()
+        return base ? base + " " + transcript : transcript
+      })
+      // Auto-restart for continuous feel
       if (recognitionRef.current) {
-        recognitionRef.current.stop()
-        recognitionRef.current = null
+        try { recognitionRef.current.start() } catch {}
       }
+    }
 
-      const recognition = new SR()
-      recognition.continuous      = true
-      recognition.interimResults  = true
-      recognition.lang            = "en-US"
-      recognition.maxAlternatives = 1
-
-      recognition.onstart = () => {
-        setListening(true)
-        setError("")
+    recognition.onerror = (e: any) => {
+      if (e.error === "not-allowed") {
+        setError("Microphone blocked. Allow access in browser settings.")
+      } else if (e.error === "no-speech") {
+        // Silently restart on no-speech
+        try { if (recognitionRef.current) recognitionRef.current.start() } catch {}
+        return
+      } else if (e.error === "aborted") {
+        return
+      } else {
+        setError(`Voice error: ${e.error}`)
       }
-
-      recognition.onresult = (e: any) => {
-        let finalText   = ""
-        let interimText = ""
-
-        for (let i = e.resultIndex; i < e.results.length; i++) {
-          const t = e.results[i][0].transcript
-          if (e.results[i].isFinal) finalText   += t + " "
-          else                      interimText += t
-        }
-
-        setAnswer(prev => {
-          const base = prev.endsWith(" ") ? prev : (prev ? prev + " " : "")
-          return (base + finalText + interimText).trim()
-        })
-      }
-
-      recognition.onerror = (e: any) => {
-        if (e.error === "not-allowed") {
-          setError("Microphone access denied. Allow microphone in browser settings.")
-        } else if (e.error === "no-speech") {
-          setError("No speech detected. Speak louder or closer to mic.")
-        } else {
-          setError(`Voice error: ${e.error}. Try again.`)
-        }
-        setListening(false)
-      }
-
-      recognition.onend = () => setListening(false)
-
-      recognitionRef.current = recognition
-      recognition.start()
-
-    } catch {
-      setError("Could not start voice. Use Chrome browser.")
       setListening(false)
     }
-  }
 
-  function stopVoice() {
-    recognitionRef.current?.stop()
-    recognitionRef.current = null
+    recognition.onend = () => {
+      // Only mark as not listening if user stopped
+      if (recognitionRef.current) {
+        setListening(true) // still active
+      } else {
+        setListening(false)
+      }
+    }
+
+    recognitionRef.current = recognition
+    recognition.start()
+    setListening(true)
+
+  } catch (err) {
+    setError("Could not start voice. Use Chrome browser.")
     setListening(false)
   }
+}
+
+function stopVoice() {
+  if (recognitionRef.current) {
+    recognitionRef.current.stop()
+    recognitionRef.current = null
+  }
+  setListening(false)
+}
 
   // ── Loading screen ──────────────────────────────────────────────────
   if (!session) return (

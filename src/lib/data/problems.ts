@@ -1,915 +1,1018 @@
-export interface TestCase {
-  id:       number
-  input:    string        // human-readable display
-  args:     string        // JSON array of args to pass
-  expected: string        // expected return value as JSON
-  hidden:   boolean
+export interface Problem {
+  id: number
+  title: string
+  difficulty: "Easy" | "Medium" | "Hard"
+  companies: string[]
+  category: "Product-Based" | "Service-Based" | "Both"
+  topic: string
+  leetcode_link: string
+  slug: string
 }
 
-export interface CodingProblem {
-  id:            string
-  title:         string
-  slug:          string
-  difficulty:    "easy" | "medium" | "hard"
-  topics:        string[]
-  companies:     string[]
-  description:   string
-  examples:      { input: string; output: string; explanation?: string }[]
-  constraints:   string[]
-  hints:         string[]
-  function_name: string
-  starter_code:  Record<string, string>
-  test_cases:    TestCase[]
-}
-
-export const CODING_PROBLEMS: CodingProblem[] = [
+export const problems: Problem[] = [
+  // ── EASY (1-30) ──────────────────────────────────────────────────────
   {
-    id: "1", title: "Two Sum", slug: "two-sum",
-    difficulty: "easy", topics: ["Array","Hash Map"],
-    companies: ["amazon","google","microsoft","flipkart","tcs"],
-    description: `Given an array of integers \`nums\` and an integer \`target\`, return **indices** of the two numbers such that they add up to \`target\`.
-
-You may assume that each input would have **exactly one solution**, and you may not use the same element twice.
-
-Return the answer in any order.`,
-    examples: [
-      { input: "nums = [2,7,11,15], target = 9", output: "[0,1]", explanation: "nums[0] + nums[1] = 2 + 7 = 9" },
-      { input: "nums = [3,2,4], target = 6",      output: "[1,2]" },
-      { input: "nums = [3,3], target = 6",         output: "[0,1]" },
-    ],
-    constraints: ["2 ≤ nums.length ≤ 10⁴", "-10⁹ ≤ nums[i] ≤ 10⁹", "Only one valid answer exists"],
-    hints: ["Use a hash map to store numbers you've seen", "For each number x, check if target-x exists in the map"],
-    function_name: "twoSum",
-    starter_code: {
-      javascript: `/**
- * @param {number[]} nums
- * @param {number} target
- * @return {number[]}
- */
-function twoSum(nums, target) {
-    // Your code here
-};`,
-      python: `def twoSum(nums, target):
-    # Your code here
-    pass`,
-      java: `class Solution {
-    public int[] twoSum(int[] nums, int target) {
-        // Your code here
-    }
-}`,
-      cpp: `vector<int> twoSum(vector<int>& nums, int target) {
-    // Your code here
-}`,
-    },
-    test_cases: [
-      { id:1, input:"nums = [2,7,11,15], target = 9", args:"[[2,7,11,15],9]",  expected:"[0,1]",  hidden:false },
-      { id:2, input:"nums = [3,2,4], target = 6",      args:"[[3,2,4],6]",     expected:"[1,2]",  hidden:false },
-      { id:3, input:"nums = [3,3], target = 6",         args:"[[3,3],6]",       expected:"[0,1]",  hidden:true  },
-      { id:4, input:"nums = [1,5,3,2], target = 4",    args:"[[1,5,3,2],4]",   expected:"[2,3]",  hidden:true  },
-      { id:5, input:"nums = [-1,-2,-3,-4,-5], target = -8", args:"[[-1,-2,-3,-4,-5],-8]", expected:"[2,4]", hidden:true },
-      { id:6, input:"nums = [0,4,3,0], target = 0",    args:"[[0,4,3,0],0]",   expected:"[0,3]",  hidden:true  },
-    ],
+    id: 1,
+    title: "Two Sum",
+    difficulty: "Easy",
+    companies: ["Amazon", "Google", "Microsoft", "Adobe", "Apple"],
+    category: "Product-Based",
+    topic: "Array",
+    leetcode_link: "https://leetcode.com/problems/two-sum/",
+    slug: "two-sum",
   },
   {
-    id: "2", title: "Valid Parentheses", slug: "valid-parentheses",
-    difficulty: "easy", topics: ["Stack","String"],
-    companies: ["amazon","google","microsoft","infosys"],
-    description: `Given a string \`s\` containing just the characters \`'('\`, \`')'\`, \`'{'\`, \`'}'\`, \`'['\` and \`']'\`, determine if the input string is **valid**.
-
-An input string is valid if:
-1. Open brackets must be closed by the same type of brackets.
-2. Open brackets must be closed in the correct order.
-3. Every close bracket has a corresponding open bracket of the same type.`,
-    examples: [
-      { input: 's = "()"',      output: "true" },
-      { input: 's = "()[]{}"',  output: "true" },
-      { input: 's = "(]"',      output: "false" },
-    ],
-    constraints: ["1 ≤ s.length ≤ 10⁴", "s consists of parentheses only '()[]{}'"],
-    hints: ["Use a stack","Push opening brackets, pop and compare for closing brackets"],
-    function_name: "isValid",
-    starter_code: {
-      javascript: `/**
- * @param {string} s
- * @return {boolean}
- */
-function isValid(s) {
-    // Your code here
-};`,
-      python: `def isValid(s):
-    # Your code here
-    pass`,
-      java: `class Solution {
-    public boolean isValid(String s) {
-        // Your code here
-    }
-}`,
-      cpp: `bool isValid(string s) {
-    // Your code here
-}`,
-    },
-    test_cases: [
-      { id:1, input:'s = "()"',     args:'["()"]',    expected:"true",  hidden:false },
-      { id:2, input:'s = "()[]{}"', args:'["()[]{}"]',expected:"true",  hidden:false },
-      { id:3, input:'s = "(]"',     args:'["(]"]',    expected:"false", hidden:true  },
-      { id:4, input:'s = "([)]"',   args:'["([)]"]',  expected:"false", hidden:true  },
-      { id:5, input:'s = "{[]}"',   args:'["{[]}"]',  expected:"true",  hidden:true  },
-      { id:6, input:'s = ""',       args:'[""]',      expected:"true",  hidden:true  },
-    ],
+    id: 2,
+    title: "Valid Parentheses",
+    difficulty: "Easy",
+    companies: ["Amazon", "Microsoft", "Bloomberg", "Infosys"],
+    category: "Both",
+    topic: "Stack",
+    leetcode_link: "https://leetcode.com/problems/valid-parentheses/",
+    slug: "valid-parentheses",
   },
   {
-    id: "3", title: "Reverse Linked List", slug: "reverse-linked-list",
-    difficulty: "easy", topics: ["Linked List","Recursion"],
-    companies: ["amazon","flipkart","tcs","microsoft"],
-    description: `Given the \`head\` of a singly linked list, reverse the list, and return the **reversed list**.
-
-**Note:** For this problem, represent your linked list as an array and return the reversed array.`,
-    examples: [
-      { input: "head = [1,2,3,4,5]", output: "[5,4,3,2,1]" },
-      { input: "head = [1,2]",       output: "[2,1]" },
-      { input: "head = []",           output: "[]" },
-    ],
-    constraints: ["0 ≤ nodes ≤ 5000", "-5000 ≤ Node.val ≤ 5000"],
-    hints: ["Think of it as reversing an array","Track prev, curr pointers"],
-    function_name: "reverseList",
-    starter_code: {
-      javascript: `/**
- * @param {number[]} head - array representation of linked list
- * @return {number[]}
- */
-function reverseList(head) {
-    // Your code here
-};`,
-      python: `def reverseList(head):
-    # head is a list, return reversed list
-    pass`,
-      java: `class Solution {
-    public int[] reverseList(int[] head) {
-        // Your code here
-    }
-}`,
-      cpp: `vector<int> reverseList(vector<int>& head) {
-    // Your code here
-}`,
-    },
-    test_cases: [
-      { id:1, input:"head = [1,2,3,4,5]", args:"[[1,2,3,4,5]]", expected:"[5,4,3,2,1]", hidden:false },
-      { id:2, input:"head = [1,2]",        args:"[[1,2]]",       expected:"[2,1]",        hidden:false },
-      { id:3, input:"head = []",            args:"[[]]",          expected:"[]",           hidden:true  },
-      { id:4, input:"head = [1]",           args:"[[1]]",         expected:"[1]",          hidden:true  },
-      { id:5, input:"head = [1,2,3]",       args:"[[1,2,3]]",     expected:"[3,2,1]",      hidden:true  },
-      { id:6, input:"head = [5,4,3,2,1]",   args:"[[5,4,3,2,1]]", expected:"[1,2,3,4,5]", hidden:true  },
-    ],
+    id: 3,
+    title: "Reverse Linked List",
+    difficulty: "Easy",
+    companies: ["Amazon", "Microsoft", "TCS", "Wipro", "Flipkart"],
+    category: "Both",
+    topic: "Linked List",
+    leetcode_link: "https://leetcode.com/problems/reverse-linked-list/",
+    slug: "reverse-linked-list",
   },
   {
-    id: "4", title: "Maximum Subarray", slug: "maximum-subarray",
-    difficulty: "medium", topics: ["Array","Dynamic Programming"],
-    companies: ["amazon","google","microsoft","swiggy"],
-    description: `Given an integer array \`nums\`, find the **subarray** with the largest sum, and return its sum.`,
-    examples: [
-      { input: "nums = [-2,1,-3,4,-1,2,1,-5,4]", output: "6",  explanation: "The subarray [4,-1,2,1] has the largest sum 6." },
-      { input: "nums = [1]",                       output: "1" },
-      { input: "nums = [5,4,-1,7,8]",             output: "23" },
-    ],
-    constraints: ["1 ≤ nums.length ≤ 10⁵", "-10⁴ ≤ nums[i] ≤ 10⁴"],
-    hints: ["Try Kadane's algorithm","At each step decide: extend current subarray or start new one"],
-    function_name: "maxSubArray",
-    starter_code: {
-      javascript: `/**
- * @param {number[]} nums
- * @return {number}
- */
-function maxSubArray(nums) {
-    // Your code here
-};`,
-      python: `def maxSubArray(nums):
-    # Your code here
-    pass`,
-      java: `class Solution {
-    public int maxSubArray(int[] nums) {
-        // Your code here
-    }
-}`,
-      cpp: `int maxSubArray(vector<int>& nums) {
-    // Your code here
-}`,
-    },
-    test_cases: [
-      { id:1, input:"nums = [-2,1,-3,4,-1,2,1,-5,4]", args:"[[-2,1,-3,4,-1,2,1,-5,4]]", expected:"6",  hidden:false },
-      { id:2, input:"nums = [1]",                       args:"[[1]]",                     expected:"1",  hidden:false },
-      { id:3, input:"nums = [5,4,-1,7,8]",             args:"[[5,4,-1,7,8]]",            expected:"23", hidden:true  },
-      { id:4, input:"nums = [-1]",                      args:"[[-1]]",                    expected:"-1", hidden:true  },
-      { id:5, input:"nums = [-2,-1]",                   args:"[[-2,-1]]",                 expected:"-1", hidden:true  },
-      { id:6, input:"nums = [1,2,3,4,5]",              args:"[[1,2,3,4,5]]",             expected:"15", hidden:true  },
-    ],
+    id: 4,
+    title: "Best Time to Buy and Sell Stock",
+    difficulty: "Easy",
+    companies: ["Amazon", "Google", "Facebook", "Flipkart"],
+    category: "Product-Based",
+    topic: "Array",
+    leetcode_link: "https://leetcode.com/problems/best-time-to-buy-and-sell-stock/",
+    slug: "best-time-to-buy-and-sell-stock",
   },
   {
-    id: "5", title: "Binary Search", slug: "binary-search",
-    difficulty: "easy", topics: ["Array","Binary Search"],
-    companies: ["tcs","infosys","wipro","amazon"],
-    description: `Given an array of integers \`nums\` which is sorted in **ascending order**, and an integer \`target\`, write a function to search \`target\` in \`nums\`. If \`target\` exists, then return its **index**. Otherwise, return \`-1\`.
-
-You must write an algorithm with **O(log n)** runtime complexity.`,
-    examples: [
-      { input: "nums = [-1,0,3,5,9,12], target = 9",  output: "4" },
-      { input: "nums = [-1,0,3,5,9,12], target = 2",  output: "-1" },
-    ],
-    constraints: ["1 ≤ nums.length ≤ 10⁴", "All integers unique", "Sorted ascending"],
-    hints: ["Use left and right pointers","mid = left + Math.floor((right-left)/2)"],
-    function_name: "search",
-    starter_code: {
-      javascript: `/**
- * @param {number[]} nums
- * @param {number} target
- * @return {number}
- */
-function search(nums, target) {
-    // Your code here
-};`,
-      python: `def search(nums, target):
-    # Your code here
-    pass`,
-      java: `class Solution {
-    public int search(int[] nums, int target) {
-        // Your code here
-    }
-}`,
-      cpp: `int search(vector<int>& nums, int target) {
-    // Your code here
-}`,
-    },
-    test_cases: [
-      { id:1, input:"nums = [-1,0,3,5,9,12], target = 9", args:"[[-1,0,3,5,9,12],9]",  expected:"4",  hidden:false },
-      { id:2, input:"nums = [-1,0,3,5,9,12], target = 2", args:"[[-1,0,3,5,9,12],2]",  expected:"-1", hidden:false },
-      { id:3, input:"nums = [5], target = 5",              args:"[[5],5]",               expected:"0",  hidden:true  },
-      { id:4, input:"nums = [5], target = 3",              args:"[[5],3]",               expected:"-1", hidden:true  },
-      { id:5, input:"nums = [1,3,5,7,9], target = 1",     args:"[[1,3,5,7,9],1]",       expected:"0",  hidden:true  },
-      { id:6, input:"nums = [1,3,5,7,9], target = 9",     args:"[[1,3,5,7,9],9]",       expected:"4",  hidden:true  },
-    ],
+    id: 5,
+    title: "Valid Palindrome",
+    difficulty: "Easy",
+    companies: ["Facebook", "Microsoft", "Infosys", "Wipro"],
+    category: "Both",
+    topic: "String",
+    leetcode_link: "https://leetcode.com/problems/valid-palindrome/",
+    slug: "valid-palindrome",
   },
   {
-    id: "6", title: "Climbing Stairs", slug: "climbing-stairs",
-    difficulty: "easy", topics: ["Dynamic Programming","Math"],
-    companies: ["amazon","google","flipkart","tcs"],
-    description: `You are climbing a staircase. It takes \`n\` steps to reach the top.
-
-Each time you can either climb \`1\` or \`2\` steps. In how many distinct ways can you climb to the top?`,
-    examples: [
-      { input: "n = 2", output: "2", explanation: "1 step + 1 step, or 2 steps" },
-      { input: "n = 3", output: "3", explanation: "1+1+1, 1+2, 2+1" },
-    ],
-    constraints: ["1 ≤ n ≤ 45"],
-    hints: ["This is Fibonacci!","dp[n] = dp[n-1] + dp[n-2]"],
-    function_name: "climbStairs",
-    starter_code: {
-      javascript: `/**
- * @param {number} n
- * @return {number}
- */
-function climbStairs(n) {
-    // Your code here
-};`,
-      python: `def climbStairs(n):
-    # Your code here
-    pass`,
-      java: `class Solution {
-    public int climbStairs(int n) {
-        // Your code here
-    }
-}`,
-      cpp: `int climbStairs(int n) {
-    // Your code here
-}`,
-    },
-    test_cases: [
-      { id:1, input:"n = 2",  args:"[2]",  expected:"2",   hidden:false },
-      { id:2, input:"n = 3",  args:"[3]",  expected:"3",   hidden:false },
-      { id:3, input:"n = 1",  args:"[1]",  expected:"1",   hidden:true  },
-      { id:4, input:"n = 4",  args:"[4]",  expected:"5",   hidden:true  },
-      { id:5, input:"n = 10", args:"[10]", expected:"89",  hidden:true  },
-      { id:6, input:"n = 45", args:"[45]", expected:"1836311903", hidden:true },
-    ],
+    id: 6,
+    title: "Invert Binary Tree",
+    difficulty: "Easy",
+    companies: ["Google", "Amazon", "Apple"],
+    category: "Product-Based",
+    topic: "Tree",
+    leetcode_link: "https://leetcode.com/problems/invert-binary-tree/",
+    slug: "invert-binary-tree",
   },
   {
-    id: "7", title: "Contains Duplicate", slug: "contains-duplicate",
-    difficulty: "easy", topics: ["Array","Hash Set"],
-    companies: ["amazon","tcs","infosys"],
-    description: `Given an integer array \`nums\`, return \`true\` if any value appears **at least twice** in the array, and return \`false\` if every element is distinct.`,
-    examples: [
-      { input: "nums = [1,2,3,1]",   output: "true" },
-      { input: "nums = [1,2,3,4]",   output: "false" },
-      { input: "nums = [1,1,1,3,3,4,3,2,4,2]", output: "true" },
-    ],
-    constraints: ["1 ≤ nums.length ≤ 10⁵"],
-    hints: ["Use a Set","If size of set < array length, there are duplicates"],
-    function_name: "containsDuplicate",
-    starter_code: {
-      javascript: `/**
- * @param {number[]} nums
- * @return {boolean}
- */
-function containsDuplicate(nums) {
-    // Your code here
-};`,
-      python: `def containsDuplicate(nums):
-    # Your code here
-    pass`,
-      java: `class Solution {
-    public boolean containsDuplicate(int[] nums) {
-        // Your code here
-    }
-}`,
-      cpp: `bool containsDuplicate(vector<int>& nums) {
-    // Your code here
-}`,
-    },
-    test_cases: [
-      { id:1, input:"nums = [1,2,3,1]",   args:"[[1,2,3,1]]",   expected:"true",  hidden:false },
-      { id:2, input:"nums = [1,2,3,4]",   args:"[[1,2,3,4]]",   expected:"false", hidden:false },
-      { id:3, input:"nums = [1,1,1,3,3,4,3,2,4,2]", args:"[[1,1,1,3,3,4,3,2,4,2]]", expected:"true", hidden:true },
-      { id:4, input:"nums = [1]",          args:"[[1]]",          expected:"false", hidden:true  },
-      { id:5, input:"nums = []",           args:"[[]]",           expected:"false", hidden:true  },
-      { id:6, input:"nums = [1,2,3,4,5,6,7,8,9,1]", args:"[[1,2,3,4,5,6,7,8,9,1]]", expected:"true", hidden:true },
-    ],
+    id: 7,
+    title: "Maximum Depth of Binary Tree",
+    difficulty: "Easy",
+    companies: ["Amazon", "LinkedIn", "Infosys", "TCS"],
+    category: "Both",
+    topic: "Tree",
+    leetcode_link: "https://leetcode.com/problems/maximum-depth-of-binary-tree/",
+    slug: "maximum-depth-of-binary-tree",
   },
   {
-    id: "8", title: "Best Time to Buy and Sell Stock", slug: "best-time-stock",
-    difficulty: "easy", topics: ["Array","Dynamic Programming"],
-    companies: ["amazon","google","flipkart","swiggy"],
-    description: `You are given an array \`prices\` where \`prices[i]\` is the price of a given stock on the \`i\`th day.
-
-You want to maximize your profit by choosing a **single day** to buy one stock and choosing a **different day in the future** to sell that stock.
-
-Return the **maximum profit** you can achieve from this transaction. If you cannot achieve any profit, return \`0\`.`,
-    examples: [
-      { input: "prices = [7,1,5,3,6,4]", output: "5",  explanation: "Buy on day 2 (price=1), sell on day 5 (price=6)" },
-      { input: "prices = [7,6,4,3,1]",   output: "0",  explanation: "No profitable transaction possible" },
-    ],
-    constraints: ["1 ≤ prices.length ≤ 10⁵", "0 ≤ prices[i] ≤ 10⁴"],
-    hints: ["Track minimum price seen so far","At each step profit = price - minPrice"],
-    function_name: "maxProfit",
-    starter_code: {
-      javascript: `/**
- * @param {number[]} prices
- * @return {number}
- */
-function maxProfit(prices) {
-    // Your code here
-};`,
-      python: `def maxProfit(prices):
-    # Your code here
-    pass`,
-      java: `class Solution {
-    public int maxProfit(int[] prices) {
-        // Your code here
-    }
-}`,
-      cpp: `int maxProfit(vector<int>& prices) {
-    // Your code here
-}`,
-    },
-    test_cases: [
-      { id:1, input:"prices = [7,1,5,3,6,4]", args:"[[7,1,5,3,6,4]]", expected:"5", hidden:false },
-      { id:2, input:"prices = [7,6,4,3,1]",   args:"[[7,6,4,3,1]]",   expected:"0", hidden:false },
-      { id:3, input:"prices = [1,2]",          args:"[[1,2]]",          expected:"1", hidden:true  },
-      { id:4, input:"prices = [2,4,1]",        args:"[[2,4,1]]",        expected:"2", hidden:true  },
-      { id:5, input:"prices = [1]",            args:"[[1]]",            expected:"0", hidden:true  },
-      { id:6, input:"prices = [3,3,3,3,3]",   args:"[[3,3,3,3,3]]",   expected:"0", hidden:true  },
-    ],
+    id: 8,
+    title: "Binary Search",
+    difficulty: "Easy",
+    companies: ["TCS", "Infosys", "Wipro", "Accenture", "Amazon"],
+    category: "Both",
+    topic: "Binary Search",
+    leetcode_link: "https://leetcode.com/problems/binary-search/",
+    slug: "binary-search",
   },
   {
-    id: "9", title: "Missing Number", slug: "missing-number",
-    difficulty: "easy", topics: ["Array","Math","Bit Manipulation"],
-    companies: ["tcs","wipro","amazon","microsoft"],
-    description: `Given an array \`nums\` containing \`n\` distinct numbers in the range \`[0, n]\`, return the only number in the range that is **missing** from the array.`,
-    examples: [
-      { input: "nums = [3,0,1]", output: "2" },
-      { input: "nums = [0,1]",   output: "2" },
-      { input: "nums = [9,6,4,2,3,5,7,0,1]", output: "8" },
-    ],
-    constraints: ["n == nums.length", "1 ≤ n ≤ 10⁴", "All nums distinct"],
-    hints: ["Expected sum = n*(n+1)/2","Subtract actual sum from expected"],
-    function_name: "missingNumber",
-    starter_code: {
-      javascript: `/**
- * @param {number[]} nums
- * @return {number}
- */
-function missingNumber(nums) {
-    // Your code here
-};`,
-      python: `def missingNumber(nums):
-    # Your code here
-    pass`,
-      java: `class Solution {
-    public int missingNumber(int[] nums) {
-        // Your code here
-    }
-}`,
-      cpp: `int missingNumber(vector<int>& nums) {
-    // Your code here
-}`,
-    },
-    test_cases: [
-      { id:1, input:"nums = [3,0,1]",             args:"[[3,0,1]]",             expected:"2", hidden:false },
-      { id:2, input:"nums = [0,1]",               args:"[[0,1]]",               expected:"2", hidden:false },
-      { id:3, input:"nums = [9,6,4,2,3,5,7,0,1]",args:"[[9,6,4,2,3,5,7,0,1]]",expected:"8", hidden:true  },
-      { id:4, input:"nums = [0]",                 args:"[[0]]",                 expected:"1", hidden:true  },
-      { id:5, input:"nums = [1]",                 args:"[[1]]",                 expected:"0", hidden:true  },
-      { id:6, input:"nums = [0,2]",               args:"[[0,2]]",               expected:"1", hidden:true  },
-    ],
+    id: 9,
+    title: "Climbing Stairs",
+    difficulty: "Easy",
+    companies: ["Amazon", "Google", "Flipkart", "TCS"],
+    category: "Both",
+    topic: "Dynamic Programming",
+    leetcode_link: "https://leetcode.com/problems/climbing-stairs/",
+    slug: "climbing-stairs",
   },
   {
-    id: "10", title: "Fibonacci Number", slug: "fibonacci-number",
-    difficulty: "easy", topics: ["Dynamic Programming","Recursion"],
-    companies: ["tcs","infosys","wipro"],
-    description: `The **Fibonacci numbers**, commonly denoted \`F(n)\` form a sequence, called the **Fibonacci sequence**, such that each number is the sum of the two preceding ones, starting from \`0\` and \`1\`:
-
-\`F(0) = 0, F(1) = 1\`
-\`F(n) = F(n - 1) + F(n - 2)\`, for \`n > 1\`.
-
-Given \`n\`, calculate \`F(n)\`.`,
-    examples: [
-      { input: "n = 2", output: "1", explanation: "F(2) = F(1) + F(0) = 1 + 0 = 1" },
-      { input: "n = 3", output: "2", explanation: "F(3) = F(2) + F(1) = 1 + 1 = 2" },
-      { input: "n = 4", output: "3", explanation: "F(4) = F(3) + F(2) = 2 + 1 = 3" },
-    ],
-    constraints: ["0 ≤ n ≤ 30"],
-    hints: ["Memoize recursive calls","Or use bottom-up DP","Or just use two variables"],
-    function_name: "fib",
-    starter_code: {
-      javascript: `/**
- * @param {number} n
- * @return {number}
- */
-function fib(n) {
-    // Your code here
-};`,
-      python: `def fib(n):
-    # Your code here
-    pass`,
-      java: `class Solution {
-    public int fib(int n) {
-        // Your code here
-    }
-}`,
-      cpp: `int fib(int n) {
-    // Your code here
-}`,
-    },
-    test_cases: [
-      { id:1, input:"n = 2",  args:"[2]",  expected:"1",  hidden:false },
-      { id:2, input:"n = 3",  args:"[3]",  expected:"2",  hidden:false },
-      { id:3, input:"n = 0",  args:"[0]",  expected:"0",  hidden:true  },
-      { id:4, input:"n = 1",  args:"[1]",  expected:"1",  hidden:true  },
-      { id:5, input:"n = 10", args:"[10]", expected:"55", hidden:true  },
-      { id:6, input:"n = 30", args:"[30]", expected:"832040", hidden:true },
-    ],
+    id: 10,
+    title: "Contains Duplicate",
+    difficulty: "Easy",
+    companies: ["Amazon", "Infosys", "Wipro", "TCS"],
+    category: "Both",
+    topic: "Array",
+    leetcode_link: "https://leetcode.com/problems/contains-duplicate/",
+    slug: "contains-duplicate",
   },
   {
-    id: "11", title: "Single Number", slug: "single-number",
-    difficulty: "easy", topics: ["Array","Bit Manipulation"],
-    companies: ["amazon","tcs","google"],
-    description: `Given a **non-empty** array of integers \`nums\`, every element appears **twice** except for one. Find that single one.
-
-You must implement a solution with a **linear runtime complexity** and use only **constant extra space**.`,
-    examples: [
-      { input: "nums = [2,2,1]",       output: "1" },
-      { input: "nums = [4,1,2,1,2]",   output: "4" },
-      { input: "nums = [1]",           output: "1" },
-    ],
-    constraints: ["1 ≤ nums.length ≤ 3*10⁴", "Each element appears twice except one"],
-    hints: ["XOR of same numbers is 0","XOR all elements — pairs cancel out"],
-    function_name: "singleNumber",
-    starter_code: {
-      javascript: `/**
- * @param {number[]} nums
- * @return {number}
- */
-function singleNumber(nums) {
-    // Your code here
-};`,
-      python: `def singleNumber(nums):
-    # Your code here
-    pass`,
-      java: `class Solution {
-    public int singleNumber(int[] nums) {
-        // Your code here
-    }
-}`,
-      cpp: `int singleNumber(vector<int>& nums) {
-    // Your code here
-}`,
-    },
-    test_cases: [
-      { id:1, input:"nums = [2,2,1]",     args:"[[2,2,1]]",     expected:"1", hidden:false },
-      { id:2, input:"nums = [4,1,2,1,2]", args:"[[4,1,2,1,2]]", expected:"4", hidden:false },
-      { id:3, input:"nums = [1]",         args:"[[1]]",         expected:"1", hidden:true  },
-      { id:4, input:"nums = [0,1,0]",     args:"[[0,1,0]]",     expected:"1", hidden:true  },
-      { id:5, input:"nums = [7,3,5,3,7]", args:"[[7,3,5,3,7]]", expected:"5", hidden:true  },
-      { id:6, input:"nums = [100,200,100]",args:"[[100,200,100]]",expected:"200",hidden:true },
-    ],
+    id: 11,
+    title: "Merge Two Sorted Lists",
+    difficulty: "Easy",
+    companies: ["Amazon", "Microsoft", "Google", "Accenture"],
+    category: "Both",
+    topic: "Linked List",
+    leetcode_link: "https://leetcode.com/problems/merge-two-sorted-lists/",
+    slug: "merge-two-sorted-lists",
   },
   {
-    id: "12", title: "Move Zeroes", slug: "move-zeroes",
-    difficulty: "easy", topics: ["Array","Two Pointers"],
-    companies: ["tcs","wipro","flipkart"],
-    description: `Given an integer array \`nums\`, move all \`0\`'s to the **end** of it while maintaining the relative order of the non-zero elements.
-
-**Note** that you must do this **in-place** without making a copy of the array. Return the modified array.`,
-    examples: [
-      { input: "nums = [0,1,0,3,12]", output: "[1,3,12,0,0]" },
-      { input: "nums = [0]",          output: "[0]" },
-    ],
-    constraints: ["1 ≤ nums.length ≤ 10⁴"],
-    hints: ["Use a slow pointer for non-zero position","Fast pointer scans entire array"],
-    function_name: "moveZeroes",
-    starter_code: {
-      javascript: `/**
- * @param {number[]} nums
- * @return {number[]} - return the modified array
- */
-function moveZeroes(nums) {
-    // Your code here
-    return nums;
-};`,
-      python: `def moveZeroes(nums):
-    # Your code here - modify in place and return
-    return nums`,
-      java: `class Solution {
-    public int[] moveZeroes(int[] nums) {
-        // Your code here
-        return nums;
-    }
-}`,
-      cpp: `vector<int> moveZeroes(vector<int>& nums) {
-    // Your code here
-    return nums;
-}`,
-    },
-    test_cases: [
-      { id:1, input:"nums = [0,1,0,3,12]", args:"[[0,1,0,3,12]]", expected:"[1,3,12,0,0]", hidden:false },
-      { id:2, input:"nums = [0]",           args:"[[0]]",           expected:"[0]",          hidden:false },
-      { id:3, input:"nums = [1,0,0,2,3]",   args:"[[1,0,0,2,3]]",  expected:"[1,2,3,0,0]",  hidden:true  },
-      { id:4, input:"nums = [1,2,3]",       args:"[[1,2,3]]",       expected:"[1,2,3]",      hidden:true  },
-      { id:5, input:"nums = [0,0,1]",       args:"[[0,0,1]]",       expected:"[1,0,0]",      hidden:true  },
-      { id:6, input:"nums = [4,2,0,1,0,3,0]",args:"[[4,2,0,1,0,3,0]]",expected:"[4,2,1,3,0,0,0]",hidden:true },
-    ],
+    id: 12,
+    title: "Symmetric Tree",
+    difficulty: "Easy",
+    companies: ["Amazon", "Microsoft", "Bloomberg"],
+    category: "Product-Based",
+    topic: "Tree",
+    leetcode_link: "https://leetcode.com/problems/symmetric-tree/",
+    slug: "symmetric-tree",
   },
   {
-    id: "13", title: "Palindrome Number", slug: "palindrome-number",
-    difficulty: "easy", topics: ["Math"],
-    companies: ["tcs","infosys","wipro","microsoft"],
-    description: `Given an integer \`x\`, return \`true\` if \`x\` is a palindrome, and \`false\` otherwise.
-
-An integer is a palindrome when it reads the same forward and backward.`,
-    examples: [
-      { input: "x = 121",  output: "true",  explanation: "121 reads as 121 from left to right and right to left" },
-      { input: "x = -121", output: "false", explanation: "From left: -121. From right: 121-. Not palindrome." },
-      { input: "x = 10",   output: "false", explanation: "Reads as 01 from right. Not palindrome." },
-    ],
-    constraints: ["-2³¹ ≤ x ≤ 2³¹ - 1"],
-    hints: ["Negative numbers are never palindromes","Convert to string and check"],
-    function_name: "isPalindrome",
-    starter_code: {
-      javascript: `/**
- * @param {number} x
- * @return {boolean}
- */
-function isPalindrome(x) {
-    // Your code here
-};`,
-      python: `def isPalindrome(x):
-    # Your code here
-    pass`,
-      java: `class Solution {
-    public boolean isPalindrome(int x) {
-        // Your code here
-    }
-}`,
-      cpp: `bool isPalindrome(int x) {
-    // Your code here
-}`,
-    },
-    test_cases: [
-      { id:1, input:"x = 121",   args:"[121]",   expected:"true",  hidden:false },
-      { id:2, input:"x = -121",  args:"[-121]",  expected:"false", hidden:false },
-      { id:3, input:"x = 10",    args:"[10]",    expected:"false", hidden:true  },
-      { id:4, input:"x = 0",     args:"[0]",     expected:"true",  hidden:true  },
-      { id:5, input:"x = 1221",  args:"[1221]",  expected:"true",  hidden:true  },
-      { id:6, input:"x = 12321", args:"[12321]", expected:"true",  hidden:true  },
-    ],
+    id: 13,
+    title: "Palindrome Number",
+    difficulty: "Easy",
+    companies: ["TCS", "Infosys", "Wipro", "Accenture", "Microsoft"],
+    category: "Both",
+    topic: "Math",
+    leetcode_link: "https://leetcode.com/problems/palindrome-number/",
+    slug: "palindrome-number",
   },
   {
-    id: "14", title: "Majority Element", slug: "majority-element",
-    difficulty: "easy", topics: ["Array","Hash Map","Sorting"],
-    companies: ["amazon","tcs","infosys","microsoft"],
-    description: `Given an array \`nums\` of size \`n\`, return the **majority element**.
-
-The majority element is the element that appears **more than** \`⌊n / 2⌋\` times. You may assume that the majority element always exists in the array.`,
-    examples: [
-      { input: "nums = [3,2,3]",           output: "3" },
-      { input: "nums = [2,2,1,1,1,2,2]",   output: "2" },
-    ],
-    constraints: ["n == nums.length", "1 ≤ n ≤ 5*10⁴", "Majority always exists"],
-    hints: ["Boyer-Moore Voting Algorithm","Count +1 for candidate, -1 for others"],
-    function_name: "majorityElement",
-    starter_code: {
-      javascript: `/**
- * @param {number[]} nums
- * @return {number}
- */
-function majorityElement(nums) {
-    // Your code here
-};`,
-      python: `def majorityElement(nums):
-    # Your code here
-    pass`,
-      java: `class Solution {
-    public int majorityElement(int[] nums) {
-        // Your code here
-    }
-}`,
-      cpp: `int majorityElement(vector<int>& nums) {
-    // Your code here
-}`,
-    },
-    test_cases: [
-      { id:1, input:"nums = [3,2,3]",           args:"[[3,2,3]]",           expected:"3", hidden:false },
-      { id:2, input:"nums = [2,2,1,1,1,2,2]",   args:"[[2,2,1,1,1,2,2]]",  expected:"2", hidden:false },
-      { id:3, input:"nums = [1]",               args:"[[1]]",               expected:"1", hidden:true  },
-      { id:4, input:"nums = [1,1,2]",           args:"[[1,1,2]]",           expected:"1", hidden:true  },
-      { id:5, input:"nums = [5,5,5,1,1]",       args:"[[5,5,5,1,1]]",       expected:"5", hidden:true  },
-      { id:6, input:"nums = [6,5,5]",           args:"[[6,5,5]]",           expected:"5", hidden:true  },
-    ],
+    id: 14,
+    title: "Fibonacci Number",
+    difficulty: "Easy",
+    companies: ["TCS", "Infosys", "Wipro", "Accenture"],
+    category: "Service-Based",
+    topic: "Recursion",
+    leetcode_link: "https://leetcode.com/problems/fibonacci-number/",
+    slug: "fibonacci-number",
   },
   {
-    id: "15", title: "Power of Two", slug: "power-of-two",
-    difficulty: "easy", topics: ["Math","Bit Manipulation"],
-    companies: ["tcs","wipro","infosys"],
-    description: `Given an integer \`n\`, return \`true\` if it is a power of two. Otherwise, return \`false\`.
-
-An integer \`n\` is a power of two, if there exists an integer \`x\` such that \`n == 2ˣ\`.`,
-    examples: [
-      { input: "n = 1",  output: "true",  explanation: "2⁰ = 1" },
-      { input: "n = 16", output: "true",  explanation: "2⁴ = 16" },
-      { input: "n = 3",  output: "false" },
-    ],
-    constraints: ["-2³¹ ≤ n ≤ 2³¹ - 1"],
-    hints: ["n & (n-1) == 0 for powers of 2","n must also be > 0"],
-    function_name: "isPowerOfTwo",
-    starter_code: {
-      javascript: `/**
- * @param {number} n
- * @return {boolean}
- */
-function isPowerOfTwo(n) {
-    // Your code here
-};`,
-      python: `def isPowerOfTwo(n):
-    # Your code here
-    pass`,
-      java: `class Solution {
-    public boolean isPowerOfTwo(int n) {
-        // Your code here
-    }
-}`,
-      cpp: `bool isPowerOfTwo(int n) {
-    // Your code here
-}`,
-    },
-    test_cases: [
-      { id:1, input:"n = 1",  args:"[1]",  expected:"true",  hidden:false },
-      { id:2, input:"n = 16", args:"[16]", expected:"true",  hidden:false },
-      { id:3, input:"n = 3",  args:"[3]",  expected:"false", hidden:true  },
-      { id:4, input:"n = 0",  args:"[0]",  expected:"false", hidden:true  },
-      { id:5, input:"n = -1", args:"[-1]", expected:"false", hidden:true  },
-      { id:6, input:"n = 64", args:"[64]", expected:"true",  hidden:true  },
-    ],
-  },
-  // ── MEDIUM PROBLEMS ──────────────────────────────────────────────────────
-  {
-    id: "16", title: "3Sum", slug: "three-sum",
-    difficulty: "medium", topics: ["Array","Two Pointers","Sorting"],
-    companies: ["amazon","google","microsoft","flipkart"],
-    description: `Given an integer array \`nums\`, return all the triplets \`[nums[i], nums[j], nums[k]]\` such that \`i != j\`, \`i != k\`, and \`j != k\`, and \`nums[i] + nums[j] + nums[k] == 0\`.
-
-The solution set must not contain duplicate triplets. Return them in sorted order.`,
-    examples: [
-      { input: "nums = [-1,0,1,2,-1,-4]", output: "[[-1,-1,2],[-1,0,1]]" },
-      { input: "nums = [0,1,1]",           output: "[]" },
-      { input: "nums = [0,0,0]",           output: "[[0,0,0]]" },
-    ],
-    constraints: ["3 ≤ nums.length ≤ 3000"],
-    hints: ["Sort first","Fix one element, use two pointers for rest","Skip duplicates"],
-    function_name: "threeSum",
-    starter_code: {
-      javascript: `/**
- * @param {number[]} nums
- * @return {number[][]}
- */
-function threeSum(nums) {
-    // Your code here
-};`,
-      python: `def threeSum(nums):
-    # Your code here
-    pass`,
-      java: `class Solution {
-    public List<List<Integer>> threeSum(int[] nums) {
-        // Your code here
-    }
-}`,
-      cpp: `vector<vector<int>> threeSum(vector<int>& nums) {
-    // Your code here
-}`,
-    },
-    test_cases: [
-      { id:1, input:"nums = [-1,0,1,2,-1,-4]", args:"[[-1,0,1,2,-1,-4]]", expected:"[[-1,-1,2],[-1,0,1]]", hidden:false },
-      { id:2, input:"nums = [0,1,1]",           args:"[[0,1,1]]",          expected:"[]",                   hidden:false },
-      { id:3, input:"nums = [0,0,0]",           args:"[[0,0,0]]",          expected:"[[0,0,0]]",            hidden:true  },
-      { id:4, input:"nums = [-2,0,0,2,2]",      args:"[[-2,0,0,2,2]]",    expected:"[[-2,0,2]]",           hidden:true  },
-      { id:5, input:"nums = [-4,-2,-2,-2,0,1,2,2,2,3,3,4,4,6,6]", args:"[[-4,-2,-2,-2,0,1,2,2,2,3,3,4,4,6,6]]", expected:"[[-4,-2,6],[-4,0,4],[-4,1,3],[-4,2,2],[-2,-2,4],[-2,0,2]]", hidden:true },
-      { id:6, input:"nums = [1,2,-2,-1]",       args:"[[1,2,-2,-1]]",      expected:"[]",                   hidden:true  },
-    ],
+    id: 15,
+    title: "Missing Number",
+    difficulty: "Easy",
+    companies: ["Amazon", "Microsoft", "TCS", "Infosys"],
+    category: "Both",
+    topic: "Array",
+    leetcode_link: "https://leetcode.com/problems/missing-number/",
+    slug: "missing-number",
   },
   {
-    id: "17", title: "Container With Most Water", slug: "container-with-most-water",
-    difficulty: "medium", topics: ["Array","Two Pointers","Greedy"],
-    companies: ["amazon","google","microsoft"],
-    description: `You are given an integer array \`height\` of length \`n\`. There are \`n\` vertical lines drawn such that the two endpoints of the \`i\`th line are \`(i, 0)\` and \`(i, height[i])\`.
-
-Find two lines that together with the x-axis form a container, such that the container contains the **most water**.
-
-Return the maximum amount of water a container can store.`,
-    examples: [
-      { input: "height = [1,8,6,2,5,4,8,3,7]", output: "49", explanation: "Lines at index 1(h=8) and 8(h=7) form max area" },
-      { input: "height = [1,1]",                 output: "1" },
-    ],
-    constraints: ["n == height.length", "2 ≤ n ≤ 10⁵", "0 ≤ height[i] ≤ 10⁴"],
-    hints: ["Two pointers from both ends","Move pointer with smaller height inward"],
-    function_name: "maxArea",
-    starter_code: {
-      javascript: `/**
- * @param {number[]} height
- * @return {number}
- */
-function maxArea(height) {
-    // Your code here
-};`,
-      python: `def maxArea(height):
-    # Your code here
-    pass`,
-      java: `class Solution {
-    public int maxArea(int[] height) {
-        // Your code here
-    }
-}`,
-      cpp: `int maxArea(vector<int>& height) {
-    // Your code here
-}`,
-    },
-    test_cases: [
-      { id:1, input:"height = [1,8,6,2,5,4,8,3,7]", args:"[[1,8,6,2,5,4,8,3,7]]", expected:"49", hidden:false },
-      { id:2, input:"height = [1,1]",                 args:"[[1,1]]",                expected:"1",  hidden:false },
-      { id:3, input:"height = [4,3,2,1,4]",          args:"[[4,3,2,1,4]]",          expected:"16", hidden:true  },
-      { id:4, input:"height = [1,2,1]",               args:"[[1,2,1]]",               expected:"2",  hidden:true  },
-      { id:5, input:"height = [2,3,4,5,18,17,6]",    args:"[[2,3,4,5,18,17,6]]",    expected:"17", hidden:true  },
-      { id:6, input:"height = [1,3,2,5,25,24,5]",    args:"[[1,3,2,5,25,24,5]]",    expected:"24", hidden:true  },
-    ],
+    id: 16,
+    title: "Single Number",
+    difficulty: "Easy",
+    companies: ["Amazon", "Google", "TCS", "Wipro"],
+    category: "Both",
+    topic: "Bit Manipulation",
+    leetcode_link: "https://leetcode.com/problems/single-number/",
+    slug: "single-number",
   },
   {
-    id: "18", title: "House Robber", slug: "house-robber",
-    difficulty: "medium", topics: ["Dynamic Programming","Array"],
-    companies: ["amazon","google","microsoft","tcs"],
-    description: `You are a professional robber planning to rob houses along a street. Each house has a certain amount of money stashed, the only constraint stopping you from robbing each of them is that **adjacent houses have security systems** connected and it will automatically contact the police if two adjacent houses were broken into on the same night.
-
-Given an integer array \`nums\` representing the amount of money of each house, return the **maximum amount** of money you can rob tonight without alerting the police.`,
-    examples: [
-      { input: "nums = [1,2,3,1]",   output: "4", explanation: "Rob house 1 (1) then house 3 (3)" },
-      { input: "nums = [2,7,9,3,1]", output: "12", explanation: "Rob house 1 (2), house 3 (9), house 5 (1)" },
-    ],
-    constraints: ["1 ≤ nums.length ≤ 100", "0 ≤ nums[i] ≤ 400"],
-    hints: ["dp[i] = max(dp[i-1], dp[i-2]+nums[i])","Only need two previous values"],
-    function_name: "rob",
-    starter_code: {
-      javascript: `/**
- * @param {number[]} nums
- * @return {number}
- */
-function rob(nums) {
-    // Your code here
-};`,
-      python: `def rob(nums):
-    # Your code here
-    pass`,
-      java: `class Solution {
-    public int rob(int[] nums) {
-        // Your code here
-    }
-}`,
-      cpp: `int rob(vector<int>& nums) {
-    // Your code here
-}`,
-    },
-    test_cases: [
-      { id:1, input:"nums = [1,2,3,1]",   args:"[[1,2,3,1]]",   expected:"4",  hidden:false },
-      { id:2, input:"nums = [2,7,9,3,1]", args:"[[2,7,9,3,1]]", expected:"12", hidden:false },
-      { id:3, input:"nums = [1]",         args:"[[1]]",         expected:"1",  hidden:true  },
-      { id:4, input:"nums = [2,1]",       args:"[[2,1]]",       expected:"2",  hidden:true  },
-      { id:5, input:"nums = [0,0,0,0]",   args:"[[0,0,0,0]]",   expected:"0",  hidden:true  },
-      { id:6, input:"nums = [5,3,4,11,2]",args:"[[5,3,4,11,2]]",expected:"16", hidden:true  },
-    ],
+    id: 17,
+    title: "Move Zeroes",
+    difficulty: "Easy",
+    companies: ["Facebook", "TCS", "Infosys", "Wipro"],
+    category: "Both",
+    topic: "Array",
+    leetcode_link: "https://leetcode.com/problems/move-zeroes/",
+    slug: "move-zeroes",
   },
   {
-    id: "19", title: "Coin Change", slug: "coin-change",
-    difficulty: "medium", topics: ["Dynamic Programming","BFS"],
-    companies: ["amazon","google","flipkart","microsoft"],
-    description: `You are given an integer array \`coins\` representing coins of different denominations and an integer \`amount\` representing a total amount of money.
-
-Return the **fewest number of coins** that you need to make up that amount. If that amount of money cannot be made up by any combination of the coins, return \`-1\`.
-
-You may assume that you have an **infinite number** of each kind of coin.`,
-    examples: [
-      { input: "coins = [1,5,11], amount = 11", output: "1",  explanation: "Just one coin of 11" },
-      { input: "coins = [2], amount = 3",        output: "-1", explanation: "Cannot make 3 from coins of 2" },
-      { input: "coins = [1,2,5], amount = 11",   output: "3",  explanation: "11 = 5+5+1" },
-    ],
-    constraints: ["1 ≤ coins.length ≤ 12", "0 ≤ amount ≤ 10⁴"],
-    hints: ["dp[amount] = min coins to reach amount","dp[i] = 1 + min(dp[i-coin]) for each coin"],
-    function_name: "coinChange",
-    starter_code: {
-      javascript: `/**
- * @param {number[]} coins
- * @param {number} amount
- * @return {number}
- */
-function coinChange(coins, amount) {
-    // Your code here
-};`,
-      python: `def coinChange(coins, amount):
-    # Your code here
-    pass`,
-      java: `class Solution {
-    public int coinChange(int[] coins, int amount) {
-        // Your code here
-    }
-}`,
-      cpp: `int coinChange(vector<int>& coins, int amount) {
-    // Your code here
-}`,
-    },
-    test_cases: [
-      { id:1, input:"coins = [1,5,11], amount = 11", args:"[[1,5,11],11]", expected:"1",  hidden:false },
-      { id:2, input:"coins = [2], amount = 3",        args:"[[2],3]",       expected:"-1", hidden:false },
-      { id:3, input:"coins = [1,2,5], amount = 11",   args:"[[1,2,5],11]",  expected:"3",  hidden:true  },
-      { id:4, input:"coins = [1], amount = 0",        args:"[[1],0]",       expected:"0",  hidden:true  },
-      { id:5, input:"coins = [1], amount = 1",        args:"[[1],1]",       expected:"1",  hidden:true  },
-      { id:6, input:"coins = [186,419,83,408], amount = 6249", args:"[[186,419,83,408],6249]", expected:"20", hidden:true },
-    ],
+    id: 18,
+    title: "Reverse String",
+    difficulty: "Easy",
+    companies: ["TCS", "Infosys", "Wipro", "Accenture", "Cognizant"],
+    category: "Service-Based",
+    topic: "String",
+    leetcode_link: "https://leetcode.com/problems/reverse-string/",
+    slug: "reverse-string",
   },
   {
-    id: "20", title: "Product of Array Except Self", slug: "product-array-except-self",
-    difficulty: "medium", topics: ["Array","Prefix Sum"],
-    companies: ["amazon","google","microsoft","flipkart"],
-    description: `Given an integer array \`nums\`, return an array \`answer\` such that \`answer[i]\` is equal to the product of all the elements of \`nums\` except \`nums[i]\`.
+    id: 19,
+    title: "First Unique Character in a String",
+    difficulty: "Easy",
+    companies: ["Amazon", "Microsoft", "Infosys", "Wipro"],
+    category: "Both",
+    topic: "Hash Map",
+    leetcode_link: "https://leetcode.com/problems/first-unique-character-in-a-string/",
+    slug: "first-unique-character-in-a-string",
+  },
+  {
+    id: 20,
+    title: "Majority Element",
+    difficulty: "Easy",
+    companies: ["Amazon", "Google", "TCS", "Infosys"],
+    category: "Both",
+    topic: "Array",
+    leetcode_link: "https://leetcode.com/problems/majority-element/",
+    slug: "majority-element",
+  },
+  {
+    id: 21,
+    title: "Power of Two",
+    difficulty: "Easy",
+    companies: ["TCS", "Wipro", "Infosys", "Accenture"],
+    category: "Service-Based",
+    topic: "Bit Manipulation",
+    leetcode_link: "https://leetcode.com/problems/power-of-two/",
+    slug: "power-of-two",
+  },
+  {
+    id: 22,
+    title: "Linked List Cycle",
+    difficulty: "Easy",
+    companies: ["Amazon", "Google", "TCS", "Microsoft"],
+    category: "Both",
+    topic: "Linked List",
+    leetcode_link: "https://leetcode.com/problems/linked-list-cycle/",
+    slug: "linked-list-cycle",
+  },
+  {
+    id: 23,
+    title: "Valid Anagram",
+    difficulty: "Easy",
+    companies: ["Amazon", "Google", "Microsoft", "TCS"],
+    category: "Both",
+    topic: "Hash Map",
+    leetcode_link: "https://leetcode.com/problems/valid-anagram/",
+    slug: "valid-anagram",
+  },
+  {
+    id: 24,
+    title: "Longest Common Prefix",
+    difficulty: "Easy",
+    companies: ["TCS", "Infosys", "Wipro", "Accenture", "Amazon"],
+    category: "Both",
+    topic: "String",
+    leetcode_link: "https://leetcode.com/problems/longest-common-prefix/",
+    slug: "longest-common-prefix",
+  },
+  {
+    id: 25,
+    title: "Count Primes",
+    difficulty: "Easy",
+    companies: ["TCS", "Infosys", "Wipro", "Microsoft"],
+    category: "Both",
+    topic: "Math",
+    leetcode_link: "https://leetcode.com/problems/count-primes/",
+    slug: "count-primes",
+  },
+  {
+    id: 26,
+    title: "Diameter of Binary Tree",
+    difficulty: "Easy",
+    companies: ["Amazon", "Google", "Facebook", "Flipkart"],
+    category: "Product-Based",
+    topic: "Tree",
+    leetcode_link: "https://leetcode.com/problems/diameter-of-binary-tree/",
+    slug: "diameter-of-binary-tree",
+  },
+  {
+    id: 27,
+    title: "Balanced Binary Tree",
+    difficulty: "Easy",
+    companies: ["Amazon", "Microsoft", "TCS", "Infosys"],
+    category: "Both",
+    topic: "Tree",
+    leetcode_link: "https://leetcode.com/problems/balanced-binary-tree/",
+    slug: "balanced-binary-tree",
+  },
+  {
+    id: 28,
+    title: "Path Sum",
+    difficulty: "Easy",
+    companies: ["Amazon", "TCS", "Microsoft", "Wipro"],
+    category: "Both",
+    topic: "Tree",
+    leetcode_link: "https://leetcode.com/problems/path-sum/",
+    slug: "path-sum",
+  },
+  {
+    id: 29,
+    title: "Intersection of Two Linked Lists",
+    difficulty: "Easy",
+    companies: ["Amazon", "Microsoft", "TCS", "Accenture"],
+    category: "Both",
+    topic: "Linked List",
+    leetcode_link: "https://leetcode.com/problems/intersection-of-two-linked-lists/",
+    slug: "intersection-of-two-linked-lists",
+  },
+  {
+    id: 30,
+    title: "Palindrome Linked List",
+    difficulty: "Easy",
+    companies: ["Amazon", "Google", "TCS", "Infosys"],
+    category: "Both",
+    topic: "Linked List",
+    leetcode_link: "https://leetcode.com/problems/palindrome-linked-list/",
+    slug: "palindrome-linked-list",
+  },
 
-The product of any prefix or suffix of \`nums\` is **guaranteed** to fit in a **32-bit** integer.
+  // ── MEDIUM (31-80) ───────────────────────────────────────────────────
+  {
+    id: 31,
+    title: "Maximum Subarray",
+    difficulty: "Medium",
+    companies: ["Amazon", "Google", "Microsoft", "Swiggy", "Flipkart"],
+    category: "Product-Based",
+    topic: "Dynamic Programming",
+    leetcode_link: "https://leetcode.com/problems/maximum-subarray/",
+    slug: "maximum-subarray",
+  },
+  {
+    id: 32,
+    title: "Product of Array Except Self",
+    difficulty: "Medium",
+    companies: ["Amazon", "Google", "Microsoft", "Flipkart", "Facebook"],
+    category: "Product-Based",
+    topic: "Array",
+    leetcode_link: "https://leetcode.com/problems/product-of-array-except-self/",
+    slug: "product-of-array-except-self",
+  },
+  {
+    id: 33,
+    title: "3Sum",
+    difficulty: "Medium",
+    companies: ["Amazon", "Google", "Microsoft", "Facebook", "Flipkart"],
+    category: "Product-Based",
+    topic: "Array",
+    leetcode_link: "https://leetcode.com/problems/3sum/",
+    slug: "3sum",
+  },
+  {
+    id: 34,
+    title: "Container With Most Water",
+    difficulty: "Medium",
+    companies: ["Amazon", "Google", "Microsoft", "Bloomberg"],
+    category: "Product-Based",
+    topic: "Two Pointers",
+    leetcode_link: "https://leetcode.com/problems/container-with-most-water/",
+    slug: "container-with-most-water",
+  },
+  {
+    id: 35,
+    title: "Longest Substring Without Repeating Characters",
+    difficulty: "Medium",
+    companies: ["Amazon", "Google", "Facebook", "Microsoft", "Flipkart"],
+    category: "Product-Based",
+    topic: "Sliding Window",
+    leetcode_link: "https://leetcode.com/problems/longest-substring-without-repeating-characters/",
+    slug: "longest-substring-without-repeating-characters",
+  },
+  {
+    id: 36,
+    title: "Coin Change",
+    difficulty: "Medium",
+    companies: ["Amazon", "Google", "Flipkart", "Microsoft"],
+    category: "Product-Based",
+    topic: "Dynamic Programming",
+    leetcode_link: "https://leetcode.com/problems/coin-change/",
+    slug: "coin-change",
+  },
+  {
+    id: 37,
+    title: "House Robber",
+    difficulty: "Medium",
+    companies: ["Amazon", "Google", "Microsoft", "TCS"],
+    category: "Both",
+    topic: "Dynamic Programming",
+    leetcode_link: "https://leetcode.com/problems/house-robber/",
+    slug: "house-robber",
+  },
+  {
+    id: 38,
+    title: "Number of Islands",
+    difficulty: "Medium",
+    companies: ["Amazon", "Google", "Microsoft", "Facebook", "Flipkart"],
+    category: "Product-Based",
+    topic: "Graph",
+    leetcode_link: "https://leetcode.com/problems/number-of-islands/",
+    slug: "number-of-islands",
+  },
+  {
+    id: 39,
+    title: "Binary Tree Level Order Traversal",
+    difficulty: "Medium",
+    companies: ["Amazon", "Google", "Microsoft", "TCS"],
+    category: "Both",
+    topic: "Tree",
+    leetcode_link: "https://leetcode.com/problems/binary-tree-level-order-traversal/",
+    slug: "binary-tree-level-order-traversal",
+  },
+  {
+    id: 40,
+    title: "Validate Binary Search Tree",
+    difficulty: "Medium",
+    companies: ["Amazon", "Google", "Microsoft", "Bloomberg"],
+    category: "Product-Based",
+    topic: "Tree",
+    leetcode_link: "https://leetcode.com/problems/validate-binary-search-tree/",
+    slug: "validate-binary-search-tree",
+  },
+  {
+    id: 41,
+    title: "Merge Intervals",
+    difficulty: "Medium",
+    companies: ["Amazon", "Google", "Microsoft", "Facebook", "Swiggy"],
+    category: "Product-Based",
+    topic: "Array",
+    leetcode_link: "https://leetcode.com/problems/merge-intervals/",
+    slug: "merge-intervals",
+  },
+  {
+    id: 42,
+    title: "Search in Rotated Sorted Array",
+    difficulty: "Medium",
+    companies: ["Amazon", "Google", "Microsoft", "Flipkart", "Facebook"],
+    category: "Product-Based",
+    topic: "Binary Search",
+    leetcode_link: "https://leetcode.com/problems/search-in-rotated-sorted-array/",
+    slug: "search-in-rotated-sorted-array",
+  },
+  {
+    id: 43,
+    title: "Group Anagrams",
+    difficulty: "Medium",
+    companies: ["Amazon", "Google", "Microsoft", "Facebook"],
+    category: "Product-Based",
+    topic: "Hash Map",
+    leetcode_link: "https://leetcode.com/problems/group-anagrams/",
+    slug: "group-anagrams",
+  },
+  {
+    id: 44,
+    title: "Top K Frequent Elements",
+    difficulty: "Medium",
+    companies: ["Amazon", "Google", "Facebook", "Microsoft"],
+    category: "Product-Based",
+    topic: "Hash Map",
+    leetcode_link: "https://leetcode.com/problems/top-k-frequent-elements/",
+    slug: "top-k-frequent-elements",
+  },
+  {
+    id: 45,
+    title: "Longest Palindromic Substring",
+    difficulty: "Medium",
+    companies: ["Amazon", "Google", "Microsoft", "Flipkart"],
+    category: "Product-Based",
+    topic: "String",
+    leetcode_link: "https://leetcode.com/problems/longest-palindromic-substring/",
+    slug: "longest-palindromic-substring",
+  },
+  {
+    id: 46,
+    title: "Unique Paths",
+    difficulty: "Medium",
+    companies: ["Amazon", "Google", "Microsoft", "TCS"],
+    category: "Both",
+    topic: "Dynamic Programming",
+    leetcode_link: "https://leetcode.com/problems/unique-paths/",
+    slug: "unique-paths",
+  },
+  {
+    id: 47,
+    title: "Rotate Image",
+    difficulty: "Medium",
+    companies: ["Amazon", "Google", "Microsoft", "Facebook"],
+    category: "Product-Based",
+    topic: "Matrix",
+    leetcode_link: "https://leetcode.com/problems/rotate-image/",
+    slug: "rotate-image",
+  },
+  {
+    id: 48,
+    title: "Spiral Matrix",
+    difficulty: "Medium",
+    companies: ["Amazon", "Google", "Microsoft", "Flipkart"],
+    category: "Product-Based",
+    topic: "Matrix",
+    leetcode_link: "https://leetcode.com/problems/spiral-matrix/",
+    slug: "spiral-matrix",
+  },
+  {
+    id: 49,
+    title: "Jump Game",
+    difficulty: "Medium",
+    companies: ["Amazon", "Google", "Microsoft", "Swiggy"],
+    category: "Product-Based",
+    topic: "Greedy",
+    leetcode_link: "https://leetcode.com/problems/jump-game/",
+    slug: "jump-game",
+  },
+  {
+    id: 50,
+    title: "Subarray Sum Equals K",
+    difficulty: "Medium",
+    companies: ["Amazon", "Facebook", "Google", "Flipkart"],
+    category: "Product-Based",
+    topic: "Prefix Sum",
+    leetcode_link: "https://leetcode.com/problems/subarray-sum-equals-k/",
+    slug: "subarray-sum-equals-k",
+  },
+  {
+    id: 51,
+    title: "Find First and Last Position in Sorted Array",
+    difficulty: "Medium",
+    companies: ["Amazon", "Google", "Microsoft", "Infosys"],
+    category: "Both",
+    topic: "Binary Search",
+    leetcode_link: "https://leetcode.com/problems/find-first-and-last-position-of-element-in-sorted-array/",
+    slug: "find-first-and-last-position-of-element-in-sorted-array",
+  },
+  {
+    id: 52,
+    title: "Kth Largest Element in an Array",
+    difficulty: "Medium",
+    companies: ["Amazon", "Google", "Facebook", "Microsoft"],
+    category: "Product-Based",
+    topic: "Heap",
+    leetcode_link: "https://leetcode.com/problems/kth-largest-element-in-an-array/",
+    slug: "kth-largest-element-in-an-array",
+  },
+  {
+    id: 53,
+    title: "Course Schedule",
+    difficulty: "Medium",
+    companies: ["Amazon", "Google", "Facebook", "Microsoft", "Flipkart"],
+    category: "Product-Based",
+    topic: "Graph",
+    leetcode_link: "https://leetcode.com/problems/course-schedule/",
+    slug: "course-schedule",
+  },
+  {
+    id: 54,
+    title: "Decode Ways",
+    difficulty: "Medium",
+    companies: ["Amazon", "Google", "Microsoft", "Facebook"],
+    category: "Product-Based",
+    topic: "Dynamic Programming",
+    leetcode_link: "https://leetcode.com/problems/decode-ways/",
+    slug: "decode-ways",
+  },
+  {
+    id: 55,
+    title: "Letter Combinations of a Phone Number",
+    difficulty: "Medium",
+    companies: ["Amazon", "Google", "Facebook", "Flipkart"],
+    category: "Product-Based",
+    topic: "Backtracking",
+    leetcode_link: "https://leetcode.com/problems/letter-combinations-of-a-phone-number/",
+    slug: "letter-combinations-of-a-phone-number",
+  },
+  {
+    id: 56,
+    title: "Permutations",
+    difficulty: "Medium",
+    companies: ["Amazon", "Google", "Microsoft", "LinkedIn"],
+    category: "Product-Based",
+    topic: "Backtracking",
+    leetcode_link: "https://leetcode.com/problems/permutations/",
+    slug: "permutations",
+  },
+  {
+    id: 57,
+    title: "Subsets",
+    difficulty: "Medium",
+    companies: ["Amazon", "Google", "Microsoft", "Facebook"],
+    category: "Product-Based",
+    topic: "Backtracking",
+    leetcode_link: "https://leetcode.com/problems/subsets/",
+    slug: "subsets",
+  },
+  {
+    id: 58,
+    title: "Combination Sum",
+    difficulty: "Medium",
+    companies: ["Amazon", "Google", "Microsoft", "Snapdeal"],
+    category: "Product-Based",
+    topic: "Backtracking",
+    leetcode_link: "https://leetcode.com/problems/combination-sum/",
+    slug: "combination-sum",
+  },
+  {
+    id: 59,
+    title: "Find Duplicate Number",
+    difficulty: "Medium",
+    companies: ["Amazon", "Google", "Microsoft", "Flipkart"],
+    category: "Product-Based",
+    topic: "Array",
+    leetcode_link: "https://leetcode.com/problems/find-the-duplicate-number/",
+    slug: "find-the-duplicate-number",
+  },
+  {
+    id: 60,
+    title: "Sort Colors",
+    difficulty: "Medium",
+    companies: ["Amazon", "Microsoft", "TCS", "Infosys"],
+    category: "Both",
+    topic: "Array",
+    leetcode_link: "https://leetcode.com/problems/sort-colors/",
+    slug: "sort-colors",
+  },
+  {
+    id: 61,
+    title: "Longest Increasing Subsequence",
+    difficulty: "Medium",
+    companies: ["Amazon", "Google", "Microsoft", "Flipkart", "Infosys"],
+    category: "Both",
+    topic: "Dynamic Programming",
+    leetcode_link: "https://leetcode.com/problems/longest-increasing-subsequence/",
+    slug: "longest-increasing-subsequence",
+  },
+  {
+    id: 62,
+    title: "Partition Equal Subset Sum",
+    difficulty: "Medium",
+    companies: ["Amazon", "Google", "Microsoft", "Flipkart"],
+    category: "Product-Based",
+    topic: "Dynamic Programming",
+    leetcode_link: "https://leetcode.com/problems/partition-equal-subset-sum/",
+    slug: "partition-equal-subset-sum",
+  },
+  {
+    id: 63,
+    title: "Longest Common Subsequence",
+    difficulty: "Medium",
+    companies: ["Amazon", "Google", "Microsoft", "TCS"],
+    category: "Both",
+    topic: "Dynamic Programming",
+    leetcode_link: "https://leetcode.com/problems/longest-common-subsequence/",
+    slug: "longest-common-subsequence",
+  },
+  {
+    id: 64,
+    title: "Rotate Array",
+    difficulty: "Medium",
+    companies: ["TCS", "Infosys", "Wipro", "Microsoft", "Accenture"],
+    category: "Both",
+    topic: "Array",
+    leetcode_link: "https://leetcode.com/problems/rotate-array/",
+    slug: "rotate-array",
+  },
+  {
+    id: 65,
+    title: "Remove Nth Node From End of List",
+    difficulty: "Medium",
+    companies: ["Amazon", "Microsoft", "Google", "Infosys"],
+    category: "Both",
+    topic: "Linked List",
+    leetcode_link: "https://leetcode.com/problems/remove-nth-node-from-end-of-list/",
+    slug: "remove-nth-node-from-end-of-list",
+  },
+  {
+    id: 66,
+    title: "Reorder List",
+    difficulty: "Medium",
+    companies: ["Amazon", "Google", "Facebook", "Accenture"],
+    category: "Product-Based",
+    topic: "Linked List",
+    leetcode_link: "https://leetcode.com/problems/reorder-list/",
+    slug: "reorder-list",
+  },
+  {
+    id: 67,
+    title: "Binary Tree Right Side View",
+    difficulty: "Medium",
+    companies: ["Amazon", "Facebook", "Bloomberg", "Microsoft"],
+    category: "Product-Based",
+    topic: "Tree",
+    leetcode_link: "https://leetcode.com/problems/binary-tree-right-side-view/",
+    slug: "binary-tree-right-side-view",
+  },
+  {
+    id: 68,
+    title: "Kth Smallest Element in a BST",
+    difficulty: "Medium",
+    companies: ["Amazon", "Google", "Microsoft", "Bloomberg"],
+    category: "Product-Based",
+    topic: "Tree",
+    leetcode_link: "https://leetcode.com/problems/kth-smallest-element-in-a-bst/",
+    slug: "kth-smallest-element-in-a-bst",
+  },
+  {
+    id: 69,
+    title: "Lowest Common Ancestor of BST",
+    difficulty: "Medium",
+    companies: ["Amazon", "Facebook", "Microsoft", "Google"],
+    category: "Product-Based",
+    topic: "Tree",
+    leetcode_link: "https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-search-tree/",
+    slug: "lowest-common-ancestor-of-a-binary-search-tree",
+  },
+  {
+    id: 70,
+    title: "Daily Temperatures",
+    difficulty: "Medium",
+    companies: ["Amazon", "Google", "Microsoft", "Uber"],
+    category: "Product-Based",
+    topic: "Stack",
+    leetcode_link: "https://leetcode.com/problems/daily-temperatures/",
+    slug: "daily-temperatures",
+  },
+  {
+    id: 71,
+    title: "Evaluate Reverse Polish Notation",
+    difficulty: "Medium",
+    companies: ["Amazon", "Microsoft", "TCS", "Infosys"],
+    category: "Both",
+    topic: "Stack",
+    leetcode_link: "https://leetcode.com/problems/evaluate-reverse-polish-notation/",
+    slug: "evaluate-reverse-polish-notation",
+  },
+  {
+    id: 72,
+    title: "Clone Graph",
+    difficulty: "Medium",
+    companies: ["Amazon", "Google", "Facebook", "Flipkart"],
+    category: "Product-Based",
+    topic: "Graph",
+    leetcode_link: "https://leetcode.com/problems/clone-graph/",
+    slug: "clone-graph",
+  },
+  {
+    id: 73,
+    title: "Pacific Atlantic Water Flow",
+    difficulty: "Medium",
+    companies: ["Amazon", "Google", "Facebook", "Microsoft"],
+    category: "Product-Based",
+    topic: "Graph",
+    leetcode_link: "https://leetcode.com/problems/pacific-atlantic-water-flow/",
+    slug: "pacific-atlantic-water-flow",
+  },
+  {
+    id: 74,
+    title: "Accounts Merge",
+    difficulty: "Medium",
+    companies: ["Google", "Amazon", "Facebook", "Microsoft"],
+    category: "Product-Based",
+    topic: "Union Find",
+    leetcode_link: "https://leetcode.com/problems/accounts-merge/",
+    slug: "accounts-merge",
+  },
+  {
+    id: 75,
+    title: "Longest Consecutive Sequence",
+    difficulty: "Medium",
+    companies: ["Amazon", "Google", "Facebook", "Microsoft", "Flipkart"],
+    category: "Product-Based",
+    topic: "Hash Set",
+    leetcode_link: "https://leetcode.com/problems/longest-consecutive-sequence/",
+    slug: "longest-consecutive-sequence",
+  },
+  {
+    id: 76,
+    title: "Task Scheduler",
+    difficulty: "Medium",
+    companies: ["Amazon", "Google", "Facebook", "Microsoft"],
+    category: "Product-Based",
+    topic: "Greedy",
+    leetcode_link: "https://leetcode.com/problems/task-scheduler/",
+    slug: "task-scheduler",
+  },
+  {
+    id: 77,
+    title: "K Closest Points to Origin",
+    difficulty: "Medium",
+    companies: ["Amazon", "Google", "Facebook", "Microsoft"],
+    category: "Product-Based",
+    topic: "Heap",
+    leetcode_link: "https://leetcode.com/problems/k-closest-points-to-origin/",
+    slug: "k-closest-points-to-origin",
+  },
+  {
+    id: 78,
+    title: "Meeting Rooms II",
+    difficulty: "Medium",
+    companies: ["Amazon", "Google", "Facebook", "Microsoft", "Uber"],
+    category: "Product-Based",
+    topic: "Heap",
+    leetcode_link: "https://leetcode.com/problems/meeting-rooms-ii/",
+    slug: "meeting-rooms-ii",
+  },
+  {
+    id: 79,
+    title: "Add Two Numbers",
+    difficulty: "Medium",
+    companies: ["Amazon", "Google", "Microsoft", "TCS"],
+    category: "Both",
+    topic: "Linked List",
+    leetcode_link: "https://leetcode.com/problems/add-two-numbers/",
+    slug: "add-two-numbers",
+  },
+  {
+    id: 80,
+    title: "Target Sum",
+    difficulty: "Medium",
+    companies: ["Amazon", "Google", "Facebook", "Infosys"],
+    category: "Both",
+    topic: "Dynamic Programming",
+    leetcode_link: "https://leetcode.com/problems/target-sum/",
+    slug: "target-sum",
+  },
 
-You must write an algorithm that runs in **O(n)** time and **without using the division** operation.`,
-    examples: [
-      { input: "nums = [1,2,3,4]",       output: "[24,12,8,6]" },
-      { input: "nums = [-1,1,0,-3,3]",   output: "[0,0,9,0,0]" },
-    ],
-    constraints: ["2 ≤ nums.length ≤ 10⁵", "No division allowed"],
-    hints: ["Left pass: product of all elements to left","Right pass: multiply with product of all to right"],
-    function_name: "productExceptSelf",
-    starter_code: {
-      javascript: `/**
- * @param {number[]} nums
- * @return {number[]}
- */
-function productExceptSelf(nums) {
-    // Your code here
-};`,
-      python: `def productExceptSelf(nums):
-    # Your code here
-    pass`,
-      java: `class Solution {
-    public int[] productExceptSelf(int[] nums) {
-        // Your code here
-    }
-}`,
-      cpp: `vector<int> productExceptSelf(vector<int>& nums) {
-    // Your code here
-}`,
-    },
-    test_cases: [
-      { id:1, input:"nums = [1,2,3,4]",     args:"[[1,2,3,4]]",     expected:"[24,12,8,6]", hidden:false },
-      { id:2, input:"nums = [-1,1,0,-3,3]", args:"[[-1,1,0,-3,3]]", expected:"[0,0,9,0,0]", hidden:false },
-      { id:3, input:"nums = [2,3]",         args:"[[2,3]]",         expected:"[3,2]",        hidden:true  },
-      { id:4, input:"nums = [1,0]",         args:"[[1,0]]",         expected:"[0,1]",        hidden:true  },
-      { id:5, input:"nums = [1,1,1,1]",     args:"[[1,1,1,1]]",     expected:"[1,1,1,1]",   hidden:true  },
-      { id:6, input:"nums = [2,2,2,2]",     args:"[[2,2,2,2]]",     expected:"[8,8,8,8]",   hidden:true  },
-    ],
+  // ── HARD (81-100) ────────────────────────────────────────────────────
+  {
+    id: 81,
+    title: "Trapping Rain Water",
+    difficulty: "Hard",
+    companies: ["Amazon", "Google", "Microsoft", "Facebook", "Flipkart"],
+    category: "Product-Based",
+    topic: "Two Pointers",
+    leetcode_link: "https://leetcode.com/problems/trapping-rain-water/",
+    slug: "trapping-rain-water",
+  },
+  {
+    id: 82,
+    title: "LRU Cache",
+    difficulty: "Hard",
+    companies: ["Amazon", "Google", "Facebook", "Microsoft", "Uber"],
+    category: "Product-Based",
+    topic: "Design",
+    leetcode_link: "https://leetcode.com/problems/lru-cache/",
+    slug: "lru-cache",
+  },
+  {
+    id: 83,
+    title: "Merge k Sorted Lists",
+    difficulty: "Hard",
+    companies: ["Amazon", "Google", "Facebook", "Microsoft"],
+    category: "Product-Based",
+    topic: "Linked List",
+    leetcode_link: "https://leetcode.com/problems/merge-k-sorted-lists/",
+    slug: "merge-k-sorted-lists",
+  },
+  {
+    id: 84,
+    title: "Word Search II",
+    difficulty: "Hard",
+    companies: ["Amazon", "Google", "Microsoft", "Facebook"],
+    category: "Product-Based",
+    topic: "Trie",
+    leetcode_link: "https://leetcode.com/problems/word-search-ii/",
+    slug: "word-search-ii",
+  },
+  {
+    id: 85,
+    title: "Sliding Window Maximum",
+    difficulty: "Hard",
+    companies: ["Amazon", "Google", "Microsoft", "Facebook"],
+    category: "Product-Based",
+    topic: "Sliding Window",
+    leetcode_link: "https://leetcode.com/problems/sliding-window-maximum/",
+    slug: "sliding-window-maximum",
+  },
+  {
+    id: 86,
+    title: "Minimum Window Substring",
+    difficulty: "Hard",
+    companies: ["Amazon", "Google", "Facebook", "Microsoft", "Snapdeal"],
+    category: "Product-Based",
+    topic: "Sliding Window",
+    leetcode_link: "https://leetcode.com/problems/minimum-window-substring/",
+    slug: "minimum-window-substring",
+  },
+  {
+    id: 87,
+    title: "Serialize and Deserialize Binary Tree",
+    difficulty: "Hard",
+    companies: ["Amazon", "Google", "Facebook", "Microsoft"],
+    category: "Product-Based",
+    topic: "Tree",
+    leetcode_link: "https://leetcode.com/problems/serialize-and-deserialize-binary-tree/",
+    slug: "serialize-and-deserialize-binary-tree",
+  },
+  {
+    id: 88,
+    title: "Binary Tree Maximum Path Sum",
+    difficulty: "Hard",
+    companies: ["Amazon", "Google", "Microsoft", "Facebook"],
+    category: "Product-Based",
+    topic: "Tree",
+    leetcode_link: "https://leetcode.com/problems/binary-tree-maximum-path-sum/",
+    slug: "binary-tree-maximum-path-sum",
+  },
+  {
+    id: 89,
+    title: "Word Ladder",
+    difficulty: "Hard",
+    companies: ["Amazon", "Google", "Facebook", "Microsoft"],
+    category: "Product-Based",
+    topic: "Graph",
+    leetcode_link: "https://leetcode.com/problems/word-ladder/",
+    slug: "word-ladder",
+  },
+  {
+    id: 90,
+    title: "Alien Dictionary",
+    difficulty: "Hard",
+    companies: ["Amazon", "Google", "Facebook", "Microsoft", "Flipkart"],
+    category: "Product-Based",
+    topic: "Graph",
+    leetcode_link: "https://leetcode.com/problems/alien-dictionary/",
+    slug: "alien-dictionary",
+  },
+  {
+    id: 91,
+    title: "Find Median from Data Stream",
+    difficulty: "Hard",
+    companies: ["Amazon", "Google", "Facebook", "Microsoft"],
+    category: "Product-Based",
+    topic: "Heap",
+    leetcode_link: "https://leetcode.com/problems/find-median-from-data-stream/",
+    slug: "find-median-from-data-stream",
+  },
+  {
+    id: 92,
+    title: "Edit Distance",
+    difficulty: "Hard",
+    companies: ["Amazon", "Google", "Microsoft", "Infosys"],
+    category: "Both",
+    topic: "Dynamic Programming",
+    leetcode_link: "https://leetcode.com/problems/edit-distance/",
+    slug: "edit-distance",
+  },
+  {
+    id: 93,
+    title: "Regular Expression Matching",
+    difficulty: "Hard",
+    companies: ["Amazon", "Google", "Facebook", "Microsoft"],
+    category: "Product-Based",
+    topic: "Dynamic Programming",
+    leetcode_link: "https://leetcode.com/problems/regular-expression-matching/",
+    slug: "regular-expression-matching",
+  },
+  {
+    id: 94,
+    title: "N-Queens",
+    difficulty: "Hard",
+    companies: ["Amazon", "Google", "Microsoft", "Adobe"],
+    category: "Product-Based",
+    topic: "Backtracking",
+    leetcode_link: "https://leetcode.com/problems/n-queens/",
+    slug: "n-queens",
+  },
+  {
+    id: 95,
+    title: "Burst Balloons",
+    difficulty: "Hard",
+    companies: ["Amazon", "Google", "Facebook"],
+    category: "Product-Based",
+    topic: "Dynamic Programming",
+    leetcode_link: "https://leetcode.com/problems/burst-balloons/",
+    slug: "burst-balloons",
+  },
+  {
+    id: 96,
+    title: "Longest Valid Parentheses",
+    difficulty: "Hard",
+    companies: ["Amazon", "Google", "Microsoft", "Facebook"],
+    category: "Product-Based",
+    topic: "Stack",
+    leetcode_link: "https://leetcode.com/problems/longest-valid-parentheses/",
+    slug: "longest-valid-parentheses",
+  },
+  {
+    id: 97,
+    title: "Largest Rectangle in Histogram",
+    difficulty: "Hard",
+    companies: ["Amazon", "Google", "Facebook", "Microsoft"],
+    category: "Product-Based",
+    topic: "Stack",
+    leetcode_link: "https://leetcode.com/problems/largest-rectangle-in-histogram/",
+    slug: "largest-rectangle-in-histogram",
+  },
+  {
+    id: 98,
+    title: "Max Points on a Line",
+    difficulty: "Hard",
+    companies: ["Amazon", "Google", "Microsoft", "LinkedIn"],
+    category: "Product-Based",
+    topic: "Math",
+    leetcode_link: "https://leetcode.com/problems/max-points-on-a-line/",
+    slug: "max-points-on-a-line",
+  },
+  {
+    id: 99,
+    title: "Sudoku Solver",
+    difficulty: "Hard",
+    companies: ["Amazon", "Google", "Microsoft", "Uber"],
+    category: "Product-Based",
+    topic: "Backtracking",
+    leetcode_link: "https://leetcode.com/problems/sudoku-solver/",
+    slug: "sudoku-solver",
+  },
+  {
+    id: 100,
+    title: "Median of Two Sorted Arrays",
+    difficulty: "Hard",
+    companies: ["Amazon", "Google", "Microsoft", "Facebook", "Apple"],
+    category: "Product-Based",
+    topic: "Binary Search",
+    leetcode_link: "https://leetcode.com/problems/median-of-two-sorted-arrays/",
+    slug: "median-of-two-sorted-arrays",
   },
 ]
