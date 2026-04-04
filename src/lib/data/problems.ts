@@ -1,4 +1,5 @@
 export interface Problem {
+  [x: string]: any
   id: number
   title: string
   difficulty: "Easy" | "Medium" | "Hard"

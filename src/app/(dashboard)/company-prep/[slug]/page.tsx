@@ -5,7 +5,7 @@ import Link from "next/link"
 import { useParams, useRouter } from "next/navigation"
 import { supabase } from "@/lib/supabase"
 import { HR_QUESTIONS, SYSTEM_DESIGN_QUESTIONS } from "@/lib/data/prep"
-import { CODING_PROBLEMS } from "@/lib/data/problems"
+import { problems, Problem } from "@/lib/data/problems"
 
 const COMPANY_DATA: Record<string, any> = {
   tcs: {
@@ -147,6 +147,7 @@ export default function CompanyDetailPage() {
   if (!company) return (
     <div style={{ minHeight: "80vh", display: "flex", alignItems: "center", justifyContent: "center" }}>
       <div style={{ textAlign: "center" }}>
+
         <div style={{ fontSize: 48, marginBottom: 16 }}>🔍</div>
         <div style={{ fontSize: 18, color: "#fff", marginBottom: 16 }}>Company not found</div>
         <Link href="/company-prep" className="btn-primary">Back to companies</Link>
@@ -155,7 +156,7 @@ export default function CompanyDetailPage() {
   )
 
   const hrQs     = HR_QUESTIONS.filter(q => company.hrQuestions.includes(q.id))
-  const codingQs = CODING_PROBLEMS.filter(p => p.companies.includes(slug)).slice(0, 6)
+  const codingQs = problems.filter(p => p.companies.includes(slug)).slice(0, 6)
   const tabs     = ["overview", "hr", "coding", "tips"] as const
 
   return (
@@ -252,7 +253,7 @@ export default function CompanyDetailPage() {
                         <span style={{ fontSize: 13, color: "#52525b", minWidth: 20 }}>{i + 1}</span>
                         <span style={{ flex: 1, fontSize: 14, fontWeight: 500, color: "#e4e4e7" }}>{p.title}</span>
                         <div style={{ display: "flex", gap: 6 }}>
-                          {p.topics.slice(0,2).map(t => <span key={t} style={{ fontSize: 11, padding: "2px 7px", borderRadius: 5, background: "rgba(255,255,255,0.04)", color: "#71717a" }}>{t}</span>)}
+                          {p.topics.slice(0,2).map((t:string) => <span key={t} style={{ fontSize: 11, padding: "2px 7px", borderRadius: 5, background: "rgba(255,255,255,0.04)", color: "#71717a" }}>{t}</span>)}
                         </div>
                         <span style={{ fontSize: 12, fontWeight: 600, color: dc.text, background: dc.bg, border: `1px solid ${dc.border}`, padding: "2px 10px", borderRadius: 99, textTransform: "capitalize" }}>{p.difficulty}</span>
                       </div>

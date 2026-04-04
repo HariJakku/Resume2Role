@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server"
-import { CODING_PROBLEMS }           from "@/lib/data/problems"
+import { problems }           from "@/lib/data/problems"
 import { buildRunnerCode, compareOutputs } from "@/lib/execution/wrapper"
 
 export const runtime     = "nodejs"
@@ -109,7 +109,7 @@ export async function POST(req: NextRequest) {
     if (!language)       return NextResponse.json({ error: "No language selected",  results: [], passed: false })
     if (!problemId)      return NextResponse.json({ error: "No problem ID",         results: [], passed: false })
 
-    const problem = CODING_PROBLEMS.find(p => p.id === problemId)
+    const problem = problems.find(p => p.id === problemId)
     if (!problem)        return NextResponse.json({ error: "Problem not found",     results: [], passed: false })
 
     const results: {
