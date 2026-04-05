@@ -89,8 +89,8 @@ Built solo and deployed on Vercel. Serving B.Tech students preparing for product
 ## 🚀 Getting Started
 ```bash
 # Clone the repo
-git clone https://github.com/HariJakku/YOUR_REPO_NAME.git
-cd YOUR_REPO_NAME
+git clone https://github.com/HariJakku/Resume 2Role.git
+cd Resume2Role
 
 # Install dependencies
 npm install
