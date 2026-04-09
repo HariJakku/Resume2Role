@@ -8,6 +8,7 @@ export const metadata: Metadata = {
   keywords: ['resume to role', 'campus placement preparation', 'mock interview', 'ATS resume checker', 'B.Tech placement prep', 'coding practice', 'MNC interview preparation' , 'Resume 2 Role', 'jakku kumarswami' ],
   verification: {
     google: 'vNM6jyBDOvvnD8OWH-W0Keh-94vqyQ6mz6gzhfgaV-Q',
+    
   },
 }
 
