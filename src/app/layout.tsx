@@ -10,6 +10,8 @@ export const metadata: Metadata = {
     google: 'vNM6jyBDOvvnD8OWH-W0Keh-94vqyQ6mz6gzhfgaV-Q',
     
   },
+  manifest: '/manifest.json',
+themeColor: '#2563EB',
 }
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
