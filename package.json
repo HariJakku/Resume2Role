@@ -3,11 +3,11 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "start": "next start",
-    "lint": "eslint"
-  },
+  "dev": "next dev --webpack",
+  "build": "next build --webpack",
+  "start": "next start",
+  "lint": "next lint"
+},
   "dependencies": {
     "@anthropic-ai/sdk": "^0.86.1",
     "@ducanh2912/next-pwa": "^10.2.9",
