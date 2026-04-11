@@ -143,7 +143,7 @@ export default function RegisterPage() {
         {/* ── Logo + heading ── */}
         <div style={{ textAlign: "center", marginBottom: 28 }}>
           <img
-            src="/logo.jpg"
+            src="/icon-512.png"
             alt="Resume2Role"
             style={{ width: 48, height: 48, borderRadius: 10, objectFit: "cover", marginBottom: 12 }}
           />
@@ -193,7 +193,7 @@ export default function RegisterPage() {
                   id="full_name"
                   type="text"
                   required
-                  placeholder="e.g. Hari Kumar"
+                  placeholder="e.g. Hari Jakku "
                   autoComplete="name"
                   value={fullName}
                   onChange={e => setFullName(e.target.value)}
